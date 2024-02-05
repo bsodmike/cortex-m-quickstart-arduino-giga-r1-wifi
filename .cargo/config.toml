@@ -9,6 +9,9 @@
 # runner = "gdb-multiarch -q -x openocd.gdb"
 # runner = "gdb -q -x openocd.gdb"
 
+[target.thumbv7em-none-eabihf]
+runner = 'arm-none-eabi-gdb'
+
 rustflags = [
   # Previously, the linker arguments --nmagic and -Tlink.x were set here.
   # They are now set by build.rs instead. The linker argument can still
@@ -24,14 +27,17 @@ rustflags = [
   # "-C", "linker=arm-none-eabi-gcc",
   # "-C", "link-arg=-Wl,-Tlink.x",
   # "-C", "link-arg=-nostartfiles",
+
+  # LLD (shipped with the Rust toolchain) is used as the default linker
+  # "-C", "link-arg=-Tlink.x",
 ]
 
 [build]
 # Pick ONE of these default compilation targets
 # target = "thumbv6m-none-eabi"        # Cortex-M0 and Cortex-M0+
-target = "thumbv7m-none-eabi"        # Cortex-M3
+# target = "thumbv7m-none-eabi"        # Cortex-M3
 # target = "thumbv7em-none-eabi"       # Cortex-M4 and Cortex-M7 (no FPU)
-# target = "thumbv7em-none-eabihf"     # Cortex-M4F and Cortex-M7F (with FPU)
+target = "thumbv7em-none-eabihf"     # Cortex-M4F and Cortex-M7F (with FPU)
 # target = "thumbv8m.base-none-eabi"   # Cortex-M23
 # target = "thumbv8m.main-none-eabi"   # Cortex-M33 (no FPU)
 # target = "thumbv8m.main-none-eabihf" # Cortex-M33 (with FPU)
